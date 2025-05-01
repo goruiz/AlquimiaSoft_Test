@@ -1,0 +1,81 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-customer
+      author: Oswaldo_Ruiz
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: identification_type
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: identification_number
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: full_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+              - column:
+                  name: mobile_number
+                  type: VARCHAR(20)
+
+  - changeSet:
+      id: 002-create-address
+      author: tu_nombre
+      changes:
+        - createTable:
+            tableName: address
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: province
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address_line
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_main
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: customer_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_address_customer
+            baseTableName: address
+            baseColumnNames: customer_id
+            referencedTableName: customer
+            referencedColumnNames: id
+            onDelete: CASCADE

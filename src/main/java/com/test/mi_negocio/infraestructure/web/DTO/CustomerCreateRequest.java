@@ -1,42 +1,34 @@
-package com.test.mi_negocio.domain.model;
+package com.test.mi_negocio.infraestructure.web.DTO;
 
-import java.util.UUID;
-import java.util.Set;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public class Customer {
-    private UUID id;
+import com.test.mi_negocio.domain.model.IdentificationType;
+
+public class CustomerCreateRequest {
+    @NotNull
     private IdentificationType identificationType;
+    @NotBlank
     private String identificationNumber;
+    @NotBlank
     private String fullName;
+    @Email
     private String email;
     private String mobileNumber;
-    private Address mainAddress;
-    private Set<Address> extraAddresses;
+    @NotNull
+    private AddressCreateRequest address;
 
-    public Customer(UUID id,
-                    IdentificationType identificationType,
-                    String identificationNumber,
-                    String fullName,
-                    String email,
-                    String mobileNumber,
-                    Address mainAddress,
-                    Set<Address> extraAddresses) {
-        this.id = id;
+    public CustomerCreateRequest() {
+    }
+
+    public CustomerCreateRequest(IdentificationType identificationType, String identificationNumber, String fullName, String email, String mobileNumber, AddressCreateRequest address) {
         this.identificationType = identificationType;
         this.identificationNumber = identificationNumber;
         this.fullName = fullName;
         this.email = email;
         this.mobileNumber = mobileNumber;
-        this.mainAddress = mainAddress;
-        this.extraAddresses = extraAddresses;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+        this.address = address;
     }
 
     public IdentificationType getIdentificationType() {
@@ -79,19 +71,11 @@ public class Customer {
         this.mobileNumber = mobileNumber;
     }
 
-    public Address getMainAddress() {
-        return mainAddress;
+    public AddressCreateRequest getAddress() {
+        return address;
     }
 
-    public void setMainAddress(Address mainAddress) {
-        this.mainAddress = mainAddress;
-    }
-
-    public Set<Address> getExtraAddresses() {
-        return extraAddresses;
-    }
-
-    public void setExtraAddresses(Set<Address> extraAddresses) {
-        this.extraAddresses = extraAddresses;
+    public void setAddress(AddressCreateRequest address) {
+        this.address = address;
     }
 }

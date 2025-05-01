@@ -1,15 +1,18 @@
-package com.test.mi_negocio.domain.model;
+package com.test.mi_negocio.infraestructure.web.DTO;
 
 import java.util.UUID;
 
-public class Address {
+public class AddressDto {
     private UUID id;
     private String province;
     private String city;
     private String addressLine;
     private boolean main;
 
-    public Address(UUID id, String province, String city, String addressLine, boolean main) {
+    public AddressDto() {
+    }
+
+    public AddressDto(UUID id, String province, String city, String addressLine, boolean main) {
         this.id = id;
         this.province = province;
         this.city = city;

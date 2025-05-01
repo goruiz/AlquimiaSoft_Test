@@ -1,26 +1,24 @@
-package com.test.mi_negocio.domain.model;
+package com.test.mi_negocio.infraestructure.web.DTO;
 
+import java.util.List;
 import java.util.UUID;
-import java.util.Set;
 
-public class Customer {
+import com.test.mi_negocio.domain.model.IdentificationType;
+
+public class CustomerUpdateRequest {
     private UUID id;
     private IdentificationType identificationType;
     private String identificationNumber;
     private String fullName;
     private String email;
     private String mobileNumber;
-    private Address mainAddress;
-    private Set<Address> extraAddresses;
+    private AddressDto mainAddress;
+    private List<AddressDto> extraAddresses;
 
-    public Customer(UUID id,
-                    IdentificationType identificationType,
-                    String identificationNumber,
-                    String fullName,
-                    String email,
-                    String mobileNumber,
-                    Address mainAddress,
-                    Set<Address> extraAddresses) {
+    public CustomerUpdateRequest() {
+    }
+
+    public CustomerUpdateRequest(UUID id, IdentificationType identificationType, String identificationNumber, String fullName, String email, String mobileNumber, AddressDto mainAddress, List<AddressDto> extraAddresses) {
         this.id = id;
         this.identificationType = identificationType;
         this.identificationNumber = identificationNumber;
@@ -79,19 +77,19 @@ public class Customer {
         this.mobileNumber = mobileNumber;
     }
 
-    public Address getMainAddress() {
+    public AddressDto getMainAddress() {
         return mainAddress;
     }
 
-    public void setMainAddress(Address mainAddress) {
+    public void setMainAddress(AddressDto mainAddress) {
         this.mainAddress = mainAddress;
     }
 
-    public Set<Address> getExtraAddresses() {
+    public List<AddressDto> getExtraAddresses() {
         return extraAddresses;
     }
 
-    public void setExtraAddresses(Set<Address> extraAddresses) {
+    public void setExtraAddresses(List<AddressDto> extraAddresses) {
         this.extraAddresses = extraAddresses;
     }
 }

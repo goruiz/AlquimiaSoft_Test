@@ -1,28 +1,24 @@
-package com.test.mi_negocio.domain.model;
+package com.test.mi_negocio.infraestructure.web.DTO;
 
-import java.util.UUID;
+import jakarta.validation.constraints.NotBlank;
 
-public class Address {
-    private UUID id;
+public class AddressCreateRequest {
+    @NotBlank
     private String province;
+    @NotBlank
     private String city;
+    @NotBlank
     private String addressLine;
     private boolean main;
 
-    public Address(UUID id, String province, String city, String addressLine, boolean main) {
-        this.id = id;
+    public AddressCreateRequest() {
+    }
+
+    public AddressCreateRequest(String province, String city, String addressLine, boolean main) {
         this.province = province;
         this.city = city;
         this.addressLine = addressLine;
         this.main = main;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getProvince() {
