@@ -2,6 +2,12 @@ databaseChangeLog:
   - changeSet:
       id: 001-create-customer
       author: Oswaldo_Ruiz
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: MARK_RAN
+        - not:
+            tableExists:
+              tableName: customer
       changes:
         - createTable:
             tableName: customer
@@ -38,6 +44,12 @@ databaseChangeLog:
   - changeSet:
       id: 002-create-address
       author: Oswaldo_Ruiz
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: MARK_RAN
+        - not:
+            tableExists:
+              tableName: address
       changes:
         - createTable:
             tableName: address

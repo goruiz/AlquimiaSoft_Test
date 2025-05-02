@@ -115,7 +115,7 @@ La longitud y formato concreto del número de identificación pueden validarse e
    }
    Respuestas
 
-   201 Created: cliente creado correctamente. Retorna el objeto CustomerDto con todos sus datos y la dirección matriz.
+   200 Created: cliente creado correctamente. Retorna el objeto CustomerDto con todos sus datos y la dirección matriz.
 
    409 Conflict: ya existe un cliente con ese número de identificación.
 
@@ -139,6 +139,7 @@ La longitud y formato concreto del número de identificación pueden validarse e
    "email": "ventas@juan.com",
    "mobileNumber": "022345678"
    }
+
    Respuestas
 
    200 OK: retorna el CustomerDto actualizado.
@@ -183,6 +184,7 @@ La longitud y formato concreto del número de identificación pueden validarse e
    "addressLine": "Av. 9 de Octubre 100",
    "main": false
    }
+
    Respuestas
 
    201 Created: retorna el AddressDto con los datos de la dirección guardada.
@@ -236,15 +238,18 @@ La longitud y formato concreto del número de identificación pueden validarse e
    CustomerServiceTest valida reglas de unicidad y actualización.
    AddressServiceTest comprueba que no se puedan registrar direcciones para clientes inexistentes.
 
+   Tests de controladores:
+   AddressControllerTest y CustomerControllerTest usan @WebMvcTest y MockMvc para verificar rutas, códigos HTTP y estructura JSON de las respuestas de los endpoints.
+   
    Integración:
    @DataJpaTest con Testcontainers PostgreSQL.
    @SpringBootTest + MockMvc para verificar los contratos REST y la serialización de enums.
 
-   El proyecto incluye dos tipos de pruebas, que se encuentran en la ruta src/test:
+   El proyecto incluye las siguientes pruebas, las cuales se encuentran en ruta src/test:
 
    1. Pruebas de la capa de aplicación (src/test/application)
+      
       CustomerServiceTest:
-
       Utiliza Mockito para simular el CustomerInterface y validar los casos de uso de CustomerService.
       La búsqueda (search) devuelve la lista esperada.
       La creación (create) registra un nuevo cliente cuando el número de identificación es único, y lanza IllegalStateException si ya existe.
@@ -263,11 +268,11 @@ La longitud y formato concreto del número de identificación pueden validarse e
       Formato y contenido de las respuestas JSON (identificadores, valores de campos).
       Correcta interpretación de parámetros de ruta y de consulta, así como el manejo de los objetos de petición.
 
-   Con esta combinación de tests unitarios en la capa de servicio y tests de integración ligera en la capa de web, se asegura que la lógica de negocio se comporte según lo esperado y que los endpoints REST expongan el contrato definido.
+   Con esta combinación de tests unitarios en la capa de servicio y tests de integración ligera en la capa de web, se asegura que la lógica de negocio se comporte según lo esperado.
 
 9. Ejecución local
 
-   1. Requisitos: Java 24, PostgreSQL con base llamada “mi_negocio”, usuario “postgres”, contraseña: “pass123”. En esta sección se debe cambiar el nombre de la base de datos, el usuario y contraseña correspondientes de acuerdo a la máquina local en la que se ejecute, para hacer este cambio debe acceder al script “application.properties” e ir a las líneas siguientes:
+   1. Requisitos: Java 24, Springboot 3.4.5, PostgreSQL con base de datos llamada “mi_negocio”, usuario “postgres”, contraseña: “pass123”. Respecto a la base de datos puede cambiar el nombre, el usuario y contraseña de acuerdo a la máquina local en la que se ejecute el proyecto, para hacer este cambio debe acceder al script “application.properties” e ir a las líneas siguientes:
 
    spring.datasource.url=jdbc:postgresql://localhost:5432/mi_negocio
    spring.datasource.username=postgres
