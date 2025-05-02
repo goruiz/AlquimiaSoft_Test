@@ -6,6 +6,8 @@ import java.util.UUID;
 import com.test.mi_negocio.domain.model.IdentificationType;
 
 public class CustomerDto {
+
+    // Variables
     private UUID id;
     private IdentificationType identificationType;
     private String identificationNumber;
@@ -15,10 +17,18 @@ public class CustomerDto {
     private AddressDto mainAddress;
     private List<AddressDto> extraAddresses;
 
+    // Constructors
     public CustomerDto() {
     }
 
-    public CustomerDto(UUID id, IdentificationType identificationType, String identificationNumber, String fullName, String email, String mobileNumber, AddressDto mainAddress, List<AddressDto> extraAddresses) {
+    public CustomerDto(UUID id,
+                       IdentificationType identificationType,
+                       String identificationNumber,
+                       String fullName,
+                       String email,
+                       String mobileNumber,
+                       AddressDto mainAddress,
+                       List<AddressDto> extraAddresses) {
         this.id = id;
         this.identificationType = identificationType;
         this.identificationNumber = identificationNumber;
@@ -29,6 +39,9 @@ public class CustomerDto {
         this.extraAddresses = extraAddresses;
     }
 
+    // Methods
+
+    // Getters and setters
     public UUID getId() {
         return id;
     }

@@ -3,6 +3,8 @@ package com.test.mi_negocio.infraestructure.web.DTO;
 import jakarta.validation.constraints.NotBlank;
 
 public class AddressCreateRequest {
+
+    // Variables
     @NotBlank
     private String province;
     @NotBlank
@@ -11,6 +13,7 @@ public class AddressCreateRequest {
     private String addressLine;
     private boolean main;
 
+    // Constructors
     public AddressCreateRequest() {
     }
 
@@ -21,6 +24,9 @@ public class AddressCreateRequest {
         this.main = main;
     }
 
+    // Methods
+
+    // Getters and setters
     public String getProvince() {
         return province;
     }

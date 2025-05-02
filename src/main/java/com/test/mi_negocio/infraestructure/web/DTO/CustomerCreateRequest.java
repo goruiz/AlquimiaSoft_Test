@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import com.test.mi_negocio.domain.model.IdentificationType;
 
 public class CustomerCreateRequest {
+
+    // Variables
     @NotNull
     private IdentificationType identificationType;
     @NotBlank
@@ -19,10 +21,16 @@ public class CustomerCreateRequest {
     @NotNull
     private AddressCreateRequest address;
 
+    // Constructors
     public CustomerCreateRequest() {
     }
 
-    public CustomerCreateRequest(IdentificationType identificationType, String identificationNumber, String fullName, String email, String mobileNumber, AddressCreateRequest address) {
+    public CustomerCreateRequest(IdentificationType identificationType,
+                                 String identificationNumber,
+                                 String fullName,
+                                 String email,
+                                 String mobileNumber,
+                                 AddressCreateRequest address) {
         this.identificationType = identificationType;
         this.identificationNumber = identificationNumber;
         this.fullName = fullName;
@@ -31,6 +39,9 @@ public class CustomerCreateRequest {
         this.address = address;
     }
 
+    // Methods
+
+    // Getters and setters
     public IdentificationType getIdentificationType() {
         return identificationType;
     }

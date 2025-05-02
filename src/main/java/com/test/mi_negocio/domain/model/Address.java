@@ -3,12 +3,15 @@ package com.test.mi_negocio.domain.model;
 import java.util.UUID;
 
 public class Address {
+
+    // Variables
     private UUID id;
     private String province;
     private String city;
     private String addressLine;
     private boolean main;
 
+    // Constructor
     public Address(UUID id, String province, String city, String addressLine, boolean main) {
         this.id = id;
         this.province = province;
@@ -17,6 +20,9 @@ public class Address {
         this.main = main;
     }
 
+    // Methods
+
+    // Getters and setters
     public UUID getId() {
         return id;
     }

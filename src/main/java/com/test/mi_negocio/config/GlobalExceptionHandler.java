@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,9 +17,14 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    //Methods
+
+    //Handle bean validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String,Object>> handleValidation(MethodArgumentNotValidException ex, HttpServletRequest req) {
-        Map<String,Object> body = new LinkedHashMap<>();
+    public ResponseEntity<Map<String, Object>> handleValidation(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest req) {
+        Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());
         String errors = ex.getBindingResult().getFieldErrors().stream()
@@ -29,9 +35,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    //Handle resource not found
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String,Object>> handleNotFound(IllegalArgumentException ex, HttpServletRequest req) {
-        Map<String,Object> body = new LinkedHashMap<>();
+    public ResponseEntity<Map<String, Object>> handleNotFound(
+            IllegalArgumentException ex,
+            HttpServletRequest req) {
+        Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND.value());
         body.put("error", "Not Found");
@@ -40,9 +49,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    //Handle conflicts and data integrity issues
     @ExceptionHandler({IllegalStateException.class, DataIntegrityViolationException.class})
-    public ResponseEntity<Map<String,Object>> handleConflict(RuntimeException ex, HttpServletRequest req) {
-        Map<String,Object> body = new LinkedHashMap<>();
+    public ResponseEntity<Map<String, Object>> handleConflict(
+            RuntimeException ex,
+            HttpServletRequest req) {
+        Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.CONFLICT.value());
         body.put("error", "Conflict");
@@ -51,9 +63,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
+    //Handle any other uncaught exceptions
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String,Object>> handleAll(Exception ex, HttpServletRequest req) {
-        Map<String,Object> body = new LinkedHashMap<>();
+    public ResponseEntity<Map<String, Object>> handleAll(
+            Exception ex,
+            HttpServletRequest req) {
+        Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         body.put("error", "Internal Server Error");

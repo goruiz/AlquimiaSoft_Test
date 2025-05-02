@@ -16,27 +16,42 @@ import com.test.mi_negocio.domain.model.IdentificationType;
 @Entity
 @Table(name = "customer")
 public class CustomerEntity {
+
+    // Variables
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "identification_type", nullable = false)
     private IdentificationType identificationType;
+
     @Column(name = "identification_number", nullable = false, unique = true)
     private String identificationNumber;
+
     @Column(name = "full_name", nullable = false)
     private String fullName;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "mobile_number")
     private String mobileNumber;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<AddressEntity> addresses;
 
+    // Constructors
     public CustomerEntity() {
     }
 
-    public CustomerEntity(UUID id, IdentificationType identificationType, String identificationNumber, String fullName, String email, String mobileNumber, List<AddressEntity> addresses) {
+    public CustomerEntity(UUID id,
+                          IdentificationType identificationType,
+                          String identificationNumber,
+                          String fullName,
+                          String email,
+                          String mobileNumber,
+                          List<AddressEntity> addresses) {
         this.id = id;
         this.identificationType = identificationType;
         this.identificationNumber = identificationNumber;
@@ -46,6 +61,7 @@ public class CustomerEntity {
         this.addresses = addresses;
     }
 
+    // Methods
     public UUID getId() {
         return id;
     }

@@ -7,32 +7,45 @@ import com.test.mi_negocio.infraestructure.persistence.entity.CustomerEntity;
 import com.test.mi_negocio.infraestructure.persistence.entity.AddressEntity;
 import com.test.mi_negocio.infraestructure.persistence.jpa.CustomerJpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
 public class CustomerAdapter implements CustomerInterface {
+
+    // Injections
     private final CustomerJpaRepository jpa;
 
+    // Constructor
     public CustomerAdapter(CustomerJpaRepository jpa) {
         this.jpa = jpa;
     }
 
+    // Methods
+
+    // Find customer by ID
     @Override
     public Optional<Customer> findById(UUID id) {
         return jpa.findById(id).map(this::toDomain);
     }
 
+    // Find customer by identification number
     @Override
     public Optional<Customer> findByIdentificationNumber(String identificationNumber) {
-        return jpa.findByIdentificationNumber(identificationNumber).map(this::toDomain);
+        return jpa.findByIdentificationNumber(identificationNumber)
+                  .map(this::toDomain);
     }
 
+    // Search customers by name or ID pattern
     @Override
     public List<Customer> search(String query) {
-        return jpa.search(query).stream().map(this::toDomain).collect(Collectors.toList());
+        return jpa.search(query).stream()
+                  .map(this::toDomain)
+                  .collect(Collectors.toList());
     }
 
+    // Save or update a customer with its addresses
     @Override
     public Customer save(Customer customer) {
         CustomerEntity entity = toEntity(customer);
@@ -40,19 +53,39 @@ public class CustomerAdapter implements CustomerInterface {
         return toDomain(saved);
     }
 
+    // Delete customer by ID
     @Override
     public void deleteById(UUID id) {
         jpa.deleteById(id);
     }
 
+    // Convert JPA entity to domain model
     private Customer toDomain(CustomerEntity e) {
-        List<AddressEntity> ents = e.getAddresses() == null ? Collections.emptyList() : e.getAddresses();
-        AddressEntity mainEnt = ents.stream().filter(AddressEntity::isMain).findFirst().orElse(null);
-        Address main = mainEnt == null ? null : new Address(mainEnt.getId(), mainEnt.getProvince(), mainEnt.getCity(), mainEnt.getAddressLine(), true);
-        Set<Address> extras = ents.stream().filter(a -> !a.isMain()).map(a -> new Address(a.getId(), a.getProvince(), a.getCity(), a.getAddressLine(), false)).collect(Collectors.toSet());
-        return new Customer(e.getId(), e.getIdentificationType(), e.getIdentificationNumber(), e.getFullName(), e.getEmail(), e.getMobileNumber(), main, extras);
+        List<AddressEntity> ents = Optional.ofNullable(e.getAddresses())
+                                           .orElse(Collections.emptyList());
+        AddressEntity mainEnt = ents.stream()
+                                    .filter(AddressEntity::isMain)
+                                    .findFirst()
+                                    .orElse(null);
+        Address main = mainEnt == null ? null :
+            new Address(mainEnt.getId(), mainEnt.getProvince(), mainEnt.getCity(), mainEnt.getAddressLine(), true);
+        Set<Address> extras = ents.stream()
+            .filter(a -> !a.isMain())
+            .map(a -> new Address(a.getId(), a.getProvince(), a.getCity(), a.getAddressLine(), false))
+            .collect(Collectors.toSet());
+        return new Customer(
+            e.getId(),
+            e.getIdentificationType(),
+            e.getIdentificationNumber(),
+            e.getFullName(),
+            e.getEmail(),
+            e.getMobileNumber(),
+            main,
+            extras
+        );
     }
 
+    // Convert domain model to JPA entity
     private CustomerEntity toEntity(Customer c) {
         CustomerEntity e = new CustomerEntity();
         e.setId(c.getId());

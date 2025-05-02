@@ -3,12 +3,15 @@ package com.test.mi_negocio.infraestructure.web.DTO;
 import java.util.UUID;
 
 public class AddressDto {
+
+    // Variables
     private UUID id;
     private String province;
     private String city;
     private String addressLine;
     private boolean main;
 
+    // Constructors
     public AddressDto() {
     }
 
@@ -20,6 +23,9 @@ public class AddressDto {
         this.main = main;
     }
 
+    // Methods
+
+    // Getters and setters
     public UUID getId() {
         return id;
     }

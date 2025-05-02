@@ -4,6 +4,8 @@ import java.util.UUID;
 import java.util.Set;
 
 public class Customer {
+
+    // Variables
     private UUID id;
     private IdentificationType identificationType;
     private String identificationNumber;
@@ -13,6 +15,7 @@ public class Customer {
     private Address mainAddress;
     private Set<Address> extraAddresses;
 
+    // Constructor
     public Customer(UUID id,
                     IdentificationType identificationType,
                     String identificationNumber,
@@ -31,6 +34,9 @@ public class Customer {
         this.extraAddresses = extraAddresses;
     }
 
+    // Methods
+
+    // Getters and setters
     public UUID getId() {
         return id;
     }

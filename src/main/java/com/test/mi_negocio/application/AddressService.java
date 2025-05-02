@@ -11,14 +11,20 @@ import java.util.UUID;
 
 @Service
 public class AddressService {
+
+    // Injections
     private final AddressInterface addressInterface;
     private final CustomerInterface customerInterface;
 
-    public AddressService(AddressInterface addressInterface, CustomerInterface customerInterface) {
+    public AddressService(AddressInterface addressInterface,
+                          CustomerInterface customerInterface) {
         this.addressInterface = addressInterface;
         this.customerInterface = customerInterface;
     }
 
+    // Methods
+
+    // Add a new address for an existing customer
     @Transactional
     public Address addAddress(UUID customerId, Address address) {
         customerInterface.findById(customerId)
@@ -26,6 +32,7 @@ public class AddressService {
         return addressInterface.save(customerId, address);
     }
 
+    // List all addresses for a given customer
     @Transactional(readOnly = true)
     public List<Address> listAddresses(UUID customerId) {
         return addressInterface.findByCustomerId(customerId);

@@ -12,21 +12,29 @@ import jakarta.persistence.JoinColumn;
 @Entity
 @Table(name = "address")
 public class AddressEntity {
+
+    // Variables
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
+
     @Column(name = "province", nullable = false)
     private String province;
+
     @Column(name = "city", nullable = false)
     private String city;
+
     @Column(name = "address_line", nullable = false)
     private String addressLine;
+
     @Column(name = "is_main", nullable = false)
     private boolean main;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;
 
+    // Constructors
     public AddressEntity() {
     }
 
@@ -39,6 +47,7 @@ public class AddressEntity {
         this.customer = customer;
     }
 
+    // Methods
     public UUID getId() {
         return id;
     }
