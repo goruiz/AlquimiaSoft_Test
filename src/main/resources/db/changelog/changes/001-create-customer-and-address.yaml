@@ -37,7 +37,7 @@ databaseChangeLog:
 
   - changeSet:
       id: 002-create-address
-      author: tu_nombre
+      author: Oswaldo_Ruiz
       changes:
         - createTable:
             tableName: address
