@@ -1,15 +1,16 @@
 package com.test.mi_negocio.appplication;
 
-import com.test.mi_negocio.application.AddressService;
-import com.test.mi_negocio.domain.Interfaces.AddressInterface;
-import com.test.mi_negocio.domain.Interfaces.CustomerInterface;
-import com.test.mi_negocio.domain.model.Address;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.test_alquimiasoft.mi_negocio.application.AddressService;
+import com.test_alquimiasoft.mi_negocio.domain.Interfaces.AddressInterface;
+import com.test_alquimiasoft.mi_negocio.domain.Interfaces.CustomerInterface;
+import com.test_alquimiasoft.mi_negocio.domain.model.Address;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ class AddressServiceTest {
     @Test
     void addAddress_success() {
         when(customerInterface.findById(customerId))
-            .thenReturn(Optional.of(mock(com.test.mi_negocio.domain.model.Customer.class)));
+            .thenReturn(Optional.of(mock(com.test_alquimiasoft.mi_negocio.domain.model.Customer.class)));
         when(addressInterface.save(customerId, address)).thenReturn(address);
 
         Address result = addressService.addAddress(customerId, address);

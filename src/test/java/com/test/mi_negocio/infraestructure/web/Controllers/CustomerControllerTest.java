@@ -1,10 +1,12 @@
 package com.test.mi_negocio.infraestructure.web.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.mi_negocio.application.CustomerService;
-import com.test.mi_negocio.domain.model.Address;
-import com.test.mi_negocio.domain.model.Customer;
-import com.test.mi_negocio.domain.model.IdentificationType;
+import com.test_alquimiasoft.mi_negocio.application.CustomerService;
+import com.test_alquimiasoft.mi_negocio.domain.model.Address;
+import com.test_alquimiasoft.mi_negocio.domain.model.Customer;
+import com.test_alquimiasoft.mi_negocio.domain.model.IdentificationType;
+import com.test_alquimiasoft.mi_negocio.infraestructure.web.Controllers.CustomerController;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;

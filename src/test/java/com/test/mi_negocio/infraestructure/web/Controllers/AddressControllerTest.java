@@ -1,7 +1,5 @@
 package com.test.mi_negocio.infraestructure.web.Controllers;
 
-import com.test.mi_negocio.application.AddressService;
-import com.test.mi_negocio.domain.model.Address;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -11,6 +9,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.test_alquimiasoft.mi_negocio.application.AddressService;
+import com.test_alquimiasoft.mi_negocio.domain.model.Address;
+import com.test_alquimiasoft.mi_negocio.infraestructure.web.Controllers.AddressController;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,16 +1,17 @@
 package com.test.mi_negocio.appplication;
 
-import com.test.mi_negocio.application.CustomerService;
-import com.test.mi_negocio.domain.Interfaces.CustomerInterface;
-import com.test.mi_negocio.domain.model.Address;
-import com.test.mi_negocio.domain.model.Customer;
-import com.test.mi_negocio.domain.model.IdentificationType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.test_alquimiasoft.mi_negocio.application.CustomerService;
+import com.test_alquimiasoft.mi_negocio.domain.Interfaces.CustomerInterface;
+import com.test_alquimiasoft.mi_negocio.domain.model.Address;
+import com.test_alquimiasoft.mi_negocio.domain.model.Customer;
+import com.test_alquimiasoft.mi_negocio.domain.model.IdentificationType;
 
 import java.util.Collections;
 import java.util.List;
