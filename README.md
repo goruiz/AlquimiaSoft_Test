@@ -37,7 +37,71 @@ Documentación
 
 3. Modelo de Base de Datos y esquema físico
    No es necesario crear las tablas manualmente. Al ejecutar la aplicación, Liquibase se encarga de aplicar automáticamente los scripts de migración, generando la estructura de base de datos completa sin intervención adicional.
-   El modelo de datos está compuesto por dos entidades principales: customer y address. Cada cliente tiene un identificador único, un tipo de identificación (que puede ser cédula o RUC), un número de identificación, nombre completo, correo electrónico y número de celular. Esta información se almacena en una tabla llamada customer.
+
+   En el caso de que se quisiera crear manualmente la base de datos el script es código SQL es:
+
+   BEGIN;
+
+
+   CREATE TABLE IF NOT EXISTS public.address
+   (
+      id uuid NOT NULL,
+      province character varying(50) COLLATE pg_catalog."default" NOT NULL,
+      city character varying(50) COLLATE pg_catalog."default" NOT NULL,
+      address_line character varying(200) COLLATE pg_catalog."default" NOT NULL,
+      is_main boolean DEFAULT false,
+      customer_id uuid NOT NULL,
+      CONSTRAINT address_pkey PRIMARY KEY (id)
+   );
+
+   CREATE TABLE IF NOT EXISTS public.customer
+   (
+      id uuid NOT NULL,
+      identification_type character varying(10) COLLATE pg_catalog."default" NOT NULL,
+      identification_number character varying(20) COLLATE pg_catalog."default" NOT NULL,
+      full_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+      email character varying(100) COLLATE pg_catalog."default",
+      mobile_number character varying(20) COLLATE pg_catalog."default",
+      CONSTRAINT customer_pkey PRIMARY KEY (id),
+      CONSTRAINT customer_identification_number_key UNIQUE (identification_number)
+   );
+
+   CREATE TABLE IF NOT EXISTS public.databasechangelog
+   (
+      id character varying(255) COLLATE pg_catalog."default" NOT NULL,
+      author character varying(255) COLLATE pg_catalog."default" NOT NULL,
+      filename character varying(255) COLLATE pg_catalog."default" NOT NULL,
+      dateexecuted timestamp without time zone NOT NULL,
+      orderexecuted integer NOT NULL,
+      exectype character varying(10) COLLATE pg_catalog."default" NOT NULL,
+      md5sum character varying(35) COLLATE pg_catalog."default",
+      description character varying(255) COLLATE pg_catalog."default",
+      comments character varying(255) COLLATE pg_catalog."default",
+      tag character varying(255) COLLATE pg_catalog."default",
+      liquibase character varying(20) COLLATE pg_catalog."default",
+      contexts character varying(255) COLLATE pg_catalog."default",
+      labels character varying(255) COLLATE pg_catalog."default",
+      deployment_id character varying(10) COLLATE pg_catalog."default"
+   );
+
+   CREATE TABLE IF NOT EXISTS public.databasechangeloglock
+   (
+      id integer NOT NULL,
+      locked boolean NOT NULL,
+      lockgranted timestamp without time zone,
+      lockedby character varying(255) COLLATE pg_catalog."default",
+      CONSTRAINT databasechangeloglock_pkey PRIMARY KEY (id)
+   );
+
+   ALTER TABLE IF EXISTS public.address
+      ADD CONSTRAINT fk_address_customer FOREIGN KEY (customer_id)
+      REFERENCES public.customer (id) MATCH SIMPLE
+      ON UPDATE NO ACTION
+      ON DELETE CASCADE;
+
+   END;
+
+   El modelo está compuesto por dos entidades principales: customer y address. Cada cliente tiene un identificador único, un tipo de identificación (que puede ser cédula o RUC), un número de identificación, nombre completo, correo electrónico y número de celular. Esta información se almacena en una tabla llamada customer.
    La entidad dirección representa una ubicación asociada a un cliente y se almacena en la tabla address. Cada dirección incluye información como provincia, ciudad, línea de dirección y un indicador booleano que señala si se trata de la dirección principal (matriz). Un cliente puede tener múltiples direcciones, pero solo una de ellas puede ser marcada como matriz.
    Existe una relación uno a muchos entre cliente y direcciones, donde la tabla address contiene una clave foránea que apunta a la tabla customer. Esta relación está configurada con eliminación en cascada, lo que significa que al eliminar un cliente, se eliminan también todas sus direcciones asociadas.
    Los tipos de identificación (cédula y RUC) se representan en el sistema mediante un enumerador (enum) que se almacena como una cadena de texto en la base de datos. Esto permite distinguir entre personas naturales y jurídicas, facilitando la validación y el uso posterior en los procesos de facturación.
